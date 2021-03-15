@@ -1,0 +1,19 @@
+language: csharp
+sudo: required
+mono: none 
+
+solution: ./GameServer.sln
+dotnet: 5.0
+
+install:
+  - dotnet restore GameServer.sln
+
+script:
+  - dotnet build ./GameServer.sln
+  - dotnet test
+
+before_deploy:
+  - dotnet publish -c Release -r win10-x64
+  - dotnet publish -c Release -r ubuntu.16.10-x64
+  - dotnet publish -c Release -r osx-x64
+
